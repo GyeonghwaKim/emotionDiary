@@ -1,4 +1,5 @@
 import Button from "../component/Button";
+import Header from "../component/Header";
 
 const Home = () =>{
 //쿼리스트링 확인
@@ -7,23 +8,25 @@ const Home = () =>{
 
     return( 
         <div>
-            <Button
-                text={"기본 버튼"}
-                onClick={() =>{
-                    alert("default button")
-                }} />
-            <Button
+            <Header
+                title={"Home"}
+                leftChild={
+                <Button
                 type="positive"
                 text={"positive 버튼"}
                 onClick={() =>{
                     alert("positive button")
                 }} />
-            <Button
+                }
+                rightChild={
+<Button
             type="negative"
                 text={"negative 버튼"}
                 onClick={() =>{
                     alert("negative button")
                 }} />
+                }
+                />
         </div>
     );
 };
