@@ -77,3 +77,8 @@ export const emotionList = [
       };
 
   }
+
+  export const setPageTilte = (title) =>{
+    const titleElement =document.getElementsByTagName("title")[0];
+    titleElement.innerText=title;
+  }

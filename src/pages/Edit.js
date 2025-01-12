@@ -2,13 +2,18 @@ import { replace, useNavigate, useParams } from "react-router-dom";
 import useDiary from "../hooks/useDiary";
 import Header from "../component/Header";
 import Button from "../component/Button";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DiaryDispatchContext } from "../App";
 import Editor from "../component/Editor";
+import { setPageTilte } from "../util";
 
 const Edit = () =>{
 
     const {id} = useParams();
+
+    useEffect(()=>{
+        setPageTilte(`Modify ${id}th diary`)
+    })
     const data= useDiary(id);
 
     const navigate = useNavigate();

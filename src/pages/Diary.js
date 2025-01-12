@@ -2,12 +2,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import useDiary from "../hooks/useDiary";
 import Header from "../component/Header";
 import Button from "../component/Button";
-import { getFormattedDate } from "../util";
+import { getFormattedDate, setPageTilte } from "../util";
 import Viewer from "../component/Viewer";
+import { useEffect } from "react";
 
 const Diary = () => {
 
     const {id}=useParams();
+
+    useEffect(() =>{
+        setPageTilte(`${id}th diary`)
+    })
     const data=useDiary(id);
     
     const navigate =useNavigate();

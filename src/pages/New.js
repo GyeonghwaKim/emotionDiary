@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../component/Header";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DiaryDispatchContext } from "../App";
 import Editor from './../component/Editor';
 import Button from "../component/Button";
+import { setPageTilte } from "../util";
 
 const New = () => {
+
+
+useEffect(() =>{
+    setPageTilte("Write New Diary")
+})
     const naviate=useNavigate();
     const goBack = () => {
         naviate(-1);

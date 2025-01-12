@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { DiaryStateContext } from "../App";
 import Button from "../component/Button";
 import Header from "../component/Header";
-import { getMonthRangeByDate } from "../util";
+import { getMonthRangeByDate, setPageTilte } from "../util";
 import DiaryList from "../component/DiaryList";
 
 const Home = () => {
@@ -14,10 +14,9 @@ const Home = () => {
   }월`;
   const [filteredData, setFilteredData] = useState([]);
   useEffect(() => {
+    setPageTilte("Winterlood's Emotion Diary")
     if (data.length >= 1) {
       const { beginTimeStamp, endTimeStamp } = getMonthRangeByDate(pivotDate);
-      console.log(beginTimeStamp);
-      console.log(endTimeStamp);
       setFilteredData(
         data.filter(
           (it) => beginTimeStamp <= it.date && it.date <= endTimeStamp
