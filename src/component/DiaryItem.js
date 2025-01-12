@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { getEmotionImgById } from "../util.js";
 import Button from "./Button.js";
 import "./DiaryItem.css";
@@ -15,6 +15,7 @@ const DiaryItem = ({id,emotionId,content,date}) =>{
         navigate(`/edit/${id}`);
     }
 
+    
     return <div className="DiaryItem">
                 <div onClick={goDetail}
                     className={["img_section", `img_section_${emotionId}`].join(" ")}>
@@ -32,4 +33,4 @@ const DiaryItem = ({id,emotionId,content,date}) =>{
        </div>;
 }
 
-export default DiaryItem;
+export default React.memo(DiaryItem);

@@ -1,6 +1,6 @@
 import { emotionList, getFormattedDate } from "../util";
 import "./Editor.css";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import EmotionItem from "./EmotionItem";
@@ -37,12 +37,13 @@ const Editor = ({ initData, onSubmit}) => {
         navigate(-1);
     }
 
-    const handleChangeEmotion=(emotionId) =>{
-        setState({
-            ...state,
-            emotionId,
-        });
-    };
+    const handleChangeEmotion = useCallback((emotionId) => {
+            setState( (state) =>({
+                ...state,
+                emotionId,
+            }));
+        }, []);
+        
 
     useEffect(() => {
         if(initData){
