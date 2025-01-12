@@ -4,33 +4,34 @@ import Home from './pages/Home';
 import Diary from './pages/Diary';
 import New from './pages/New';
 import Edit from './pages/Edit';
-import { useEffect, useReducer,useRef } from 'react';
+import React,{ useEffect, useReducer,useRef, useState} from 'react';
+
 
 const mockData = [
   {
     id: "mock1",
-    date: new Date().getTime(),
+    date: new Date().getTime() -1,
     content: "mock1",
     emotionId: 1,
   },
   {
     id: "mock2",
-    date: new Date().getTime(),
+    date: new Date().getTime() -2,
     content: "mock2",
-    emotionId: 1,
+    emotionId: 2,
   },
   {
     id: "mock3",
-    date: new Date().getTime(),
+    date: new Date().getTime() -3,
     content: "mock3",
-    emotionId: 1,
+    emotionId: 3,
   },
 ];
 
 function reducer(state,action){
   switch(action.type){
     case "INIT":{
-      return [action.data,...state];
+      return action.data;
     }
     case "CREATE":{
       return [action.data,...state];
@@ -48,7 +49,11 @@ function reducer(state,action){
   }
 }
 
+export const DiaryStateContext= React.createContext();
+export const DiaryDispatchContext=React.createContext();
+
 function App() {
+  const [isDataLoaded,setIsDataLoaded] = useState(false);
   const [data,dispatch] = useReducer(reducer,[]);
   const idRef=useRef(0);
 
@@ -57,6 +62,7 @@ function App() {
       type:"INIT",
       data: mockData,
     });
+    setIsDataLoaded(true);
   },[]);
 
   const onCreate = (date,content,emotionId) => {
@@ -89,21 +95,36 @@ function App() {
       type:"DELETE",
       targetId,
     });
+  };
+
+  if(!isDataLoaded){
+    return <div>데이터를 불러오는 중입니다</div>;
+  }else{
+    return (
+      <DiaryStateContext.Provider value={data}>
+        <DiaryDispatchContext.Provider
+          value={{
+            onCreate,
+            onUpdate,
+            onDelete,
+          }}>
+          <div className="App">
+            {/*switch문 느낌 */}
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/new" element={<New />} />
+                {/*동적경로 중 url 파라미터*/}
+                <Route path="/diary/:id" element={<Diary />} />
+                <Route path="/edit/:id" element={<Edit />} />
+              </Routes>
+          </div>
+        </DiaryDispatchContext.Provider>
+      </DiaryStateContext.Provider>
+    );
   }
-
-
-  return (
-    <div className="App">
-      {/*switch문 느낌 */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/new" element={<New />} />
-          {/*동적경로 중 url 파라미터*/}
-          <Route path="/diary/:id" element={<Diary />} />
-          <Route path="/edit" element={<Edit />} />
-        </Routes>
-    </div>
-  );
+ 
 }
+
+
 
 export default App;
