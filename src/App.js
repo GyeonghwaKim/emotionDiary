@@ -35,6 +35,10 @@ function reducer(state,action){
   }
 }
 
+const conflict = () =>{
+  console.log("origin")
+}
+
 export const DiaryStateContext= React.createContext();
 export const DiaryDispatchContext=React.createContext();
 
