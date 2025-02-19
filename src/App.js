@@ -35,7 +35,7 @@ function reducer(state,action){
   }
 }
 
-const conflict = () =>{
+const originConflict = () =>{
   console.log("origin")
 }
 
